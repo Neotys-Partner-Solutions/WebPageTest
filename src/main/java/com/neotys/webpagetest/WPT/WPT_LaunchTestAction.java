@@ -74,12 +74,12 @@ public final class WPT_LaunchTestAction implements Action{
 		// TODO Add description
 		description.append("WPT_LaunchTest will launch a test on a WPT server.\n");
 		description.append("WPT_LaunchTest requires the following parameters\n");
-		description.append("\tWPT_URL : Url of your WPT Server");
-		description.append("\tWPT_APIKEY : Optionnal WPT api Key");
-		description.append("\tWPT_TestingURL : testing url to send to WPT ");
-		description.append("\tWPT_Location : WPT Location used for the test execution ");
-		description.append("\tWPT_retry : number of execution ");
-		description.append("\tNL_DataExchangeAPIURL : (Optionnal) Nl DataExchange URL http://localhost:7400/DataExchange/v1/Service.svc/");
+		description.append("\tWPT_URL : Url of your WPT Server\n");
+		description.append("\tWPT_APIKEY : Optionnal WPT api Key\n");
+		description.append("\tWPT_TestingURL : testing url to send to WPT\n");
+		description.append("\tWPT_Location : WPT Location used for the test execution\n");
+		description.append("\tWPT_retry : number of execution\n");
+		description.append("\tNL_DataExchangeAPIURL : (Optionnal) Nl DataExchange URL http://localhost:7400/DataExchange/v1/Service.svc/\n");
 		description.append("\tNL_DataExchangeAPIKEY : (Optionnal) API KEY ");
 
 

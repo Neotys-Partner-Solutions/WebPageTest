@@ -36,10 +36,10 @@ public final class WPT_LaunchTestActionEngine implements ActionEngine {
 				case WPT_LaunchTestAction.WPT_APIKEY:
 					WPT_APIKEY = parameter.getValue();
 					break;
-				case WPT_LaunchTestAction.WPT_TestingURL:
+				case WPT_LaunchTestAction.WPT_Location:
 					WPT_Location = parameter.getValue();
 					break;
-				case WPT_LaunchTestAction.WPT_Location:
+				case WPT_LaunchTestAction.WPT_TestingURL:
 					WPT_TestingURL = parameter.getValue();
 					break;
 				case WPT_LaunchTestAction.WPT_retry:
@@ -86,7 +86,7 @@ public final class WPT_LaunchTestActionEngine implements ActionEngine {
 			sampleResult.sampleStart();
 
 			runner=new WPTTestRunner(WPT_URL,WPT_APIKEY);
-			response=runner.RunTest(WPT_TestingURL,retry,WPT_TestingURL);
+			response=runner.RunTest(WPT_TestingURL,retry,WPT_Location);
 
 			appendLineToStringBuilder(requestBuilder, "WPT_LaunchTest request.");
 			appendLineToStringBuilder(responseBuilder, response.toString());

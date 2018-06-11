@@ -8,4 +8,5 @@ public class WptConst {
     public static final String TestStatus = "testStatus.php";
     public static final String TestCompleted = "Test Complete";
     public static final int TestStatusCheckIntervalSeconds = 5;
+    public static final String Result="result";
 }

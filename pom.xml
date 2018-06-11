@@ -55,6 +55,12 @@
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
+            <exclusions>
+            <exclusion>
+                <groupId>com.sun.jersey</groupId>
+                <artifactId>resteasy-jaxrs</artifactId>
+            </exclusion>
+            </exclusions>
             <version>1.19.4</version>
         </dependency>
 
@@ -150,6 +156,8 @@
                             <artifactSet>
                                 <excludes>
                                     <exclude>*:neotys-custom-action-api</exclude>
+                                    <exclude>*:jsr311-api</exclude>
+                                    <exclude>*:javax.ws.rs-api</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>

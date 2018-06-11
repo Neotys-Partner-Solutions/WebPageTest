@@ -5,9 +5,9 @@ import com.neotys.RestClient.RestClient;
 import com.neotys.RestClient.RestResponse;
 import org.json.JSONObject;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
-import javax.ws.rs.core.MediaType;
 
 /**
  * Created by hrexed on 30/05/18.
@@ -26,13 +26,13 @@ public class WPTTestRunner {
                            String location) throws URISyntaxException, InterruptedException {
 
         WptResponse runTestResponse= null;
-        String testId = Run(targetUrl, retryCount, location);
+        String[] testId = Run(targetUrl, retryCount, location);
         runTestResponse=WaitForTestToComplete(testId);
         return runTestResponse;
     }
 
-    public WptResponse WaitForTestToComplete(String testId) throws InterruptedException {
-        String url = serverUrl + "/" + WptConst.TestStatus +"?f=json&test=" + testId;
+    public WptResponse WaitForTestToComplete(String[] testId) throws InterruptedException {
+        String url = serverUrl + "/" + WptConst.TestStatus +"?f=json&test=" + testId[0];
         RestResponse restResponse = null;
         WptResponse runTestResponse= null;
         if(apiKey != null && !apiKey.isEmpty()){
@@ -45,18 +45,24 @@ public class WPTTestRunner {
             status = restResponse.getData().get("statusText").toString();
             TimeUnit.SECONDS.sleep(WptConst.TestStatusCheckIntervalSeconds);
         }
+        url = serverUrl + "/" + WptConst.Result + "/"+testId[0]+"?f=json";
+
+        restResponse = ExecuteGet(url);
         if(restResponse!=null) {
             JSONObject responseData = restResponse.getData();
-            runTestResponse = new GsonBuilder()
+             runTestResponse = new GsonBuilder()
+                    .registerTypeAdapterFactory(new WptResponse.MyAdapterFactory())
                     .create()
                     .fromJson(responseData.toString(), WptResponse.class);
         }
         return runTestResponse;
     }
 
-    private String Run(String targetUrl,
+    private String[] Run(String targetUrl,
                        int retryCount,
                        String location) throws URISyntaxException {
+
+        String[] result= new String[2];
         WptUrl.Builder wptBuilder = WptUrl.builder(serverUrl, WptConst.RunTest)
                 .WithNumberOfRuns(retryCount)
                 .WithTargetUrl(targetUrl);
@@ -75,16 +81,20 @@ public class WPTTestRunner {
         RestResponse restResponse = ExecuteGet(url);
 
         JSONObject responseData = restResponse.getData();
-        WptResponse runTestResponse = new GsonBuilder()
+        WptTestStatus runTestResponse = new GsonBuilder()
                 .create()
-                .fromJson(responseData.toString(), WptResponse.class);
+                .fromJson(responseData.toString(), WptTestStatus.class);
 
-         return runTestResponse.data.testId;
+
+        result[0]=runTestResponse.data.testId;
+        result[1]=runTestResponse.data.jsonUrl;
+
+        return result;
     }
 
     private RestResponse ExecuteGet(String url) {
         RestResponse restResponse = RestClient.Get(url,
-                MediaType.APPLICATION_JSON_TYPE);
+               "\"application/json\"");
 
         if (restResponse.getStatusCode() != 200) {
             throw new RuntimeException("Failed : HTTP error code : "

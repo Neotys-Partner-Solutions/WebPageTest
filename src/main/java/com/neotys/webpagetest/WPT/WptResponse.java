@@ -89,7 +89,7 @@ public class WptResponse {
 		}
 	}
 	public class Average {
-		public int loadTime;
+		public double loadTime;
 		public double TTFB;
 		public double bytesIn;
 		public double bytesOut;
@@ -97,30 +97,30 @@ public class WptResponse {
 		public double bytesOutDoc;
 
 		public double requestsDoc;
-		public int render;
-		public int fullyLoaded;
-		public int docTime;
-		public int domTime;
+		public double render;
+		public double fullyLoaded;
+		public double docTime;
+		public double domTime;
 		public int avgRun;
 		public double requestsFull;
 		public double requests;
-		public int firstLayout;
+		public double firstLayout;
 		public double domComplete;
 		public double	 visualComplete;
 		public double domInteractive;
-		public int score_gzip;
-		public int score_cdn;
-		public int score_progressive_jpeg;
-		public int score_etags;
+		public double score_gzip;
+		public double score_cdn;
+		public double score_progressive_jpeg;
+		public double score_etags;
 		public double score_cache;
-		public int score_keepalive;
-		public int score_compress;
+		public double score_keepalive;
+		public double score_compress;
 		public int SpeedIndex;
 
-		public int responses_404;
-		public int responses_200;
+		public double responses_404;
+		public double responses_200;
 		public double gzip_total;
-		public long image_total;
+		public double image_total;
 
 
 		public double connections;
@@ -192,7 +192,7 @@ public class WptResponse {
 		public int score_cache;
 		public int score_keepalive;
 		public int score_compress;
-		public int SpeedIndex;
+		public String SpeedIndex;
 
 		public int responses_404;
 		public int responses_200;

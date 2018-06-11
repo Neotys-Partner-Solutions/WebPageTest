@@ -18,5 +18,6 @@ public class WptTestStatus {
         public String startTime;
         public int fvRunsCompleted;
         public int rvRunsCompleted;
+        public String jsonUrl;
     }
 }
