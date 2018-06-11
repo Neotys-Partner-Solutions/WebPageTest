@@ -115,7 +115,7 @@ public class WptResponse {
 		public double score_cache;
 		public double score_keepalive;
 		public double score_compress;
-		public int SpeedIndex;
+		public double SpeedIndex;
 
 		public double responses_404;
 		public double responses_200;
