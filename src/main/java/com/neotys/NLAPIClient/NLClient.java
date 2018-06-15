@@ -40,7 +40,7 @@ public class NLClient {
             Context = new ContextBuilder();
             Context.hardware(TestingContext[1]).location(TestingContext[0]).software(TestingContext[1])
 
-                    .script("WebPageTest" + content.data.completed);
+                    .script("WebPageTest" + System.currentTimeMillis());
 
             client = DataExchangeAPIClientFactory.newClient(NLUrl, Context.build(), NLApiKey);
 
@@ -65,46 +65,48 @@ public class NLClient {
     private void ParseWPTResponse() throws URISyntaxException, GeneralSecurityException, ParseException, NeotysAPIException, IOException {
         final List<Entry> entriesToSend = new ArrayList<>();
 
+        long date=System.currentTimeMillis();
         //----response time-----
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","Loadtime",(double)content.data.average.loadTime,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","TTFB",content.data.average.TTFB,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","render",content.data.average.render ,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","fullyLoaded",content.data.average.fullyLoaded ,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","docTime",content.data.average.docTime ,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","firstLayout",content.data.average.firstLayout ,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","domComplete",content.data.average.domComplete ,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","domTime",content.data.average.domTime ,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","visualComplete",content.data.average.visualComplete ,"ms",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","domInteractive",content.data.average.domInteractive ,"ms",content.data.completed,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","Loadtime",content.data.average.loadTime,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","TTFB",content.data.average.TTFB,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","render",content.data.average.render ,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","fullyLoaded",content.data.average.fullyLoaded ,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","docTime",content.data.average.docTime ,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","firstLayout",content.data.average.firstLayout ,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","domComplete",content.data.average.domComplete ,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","domTime",content.data.average.domTime ,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","visualComplete",content.data.average.visualComplete ,"ms",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"ResponseTime","domInteractive",content.data.average.domInteractive ,"ms",date,content.data.summary));
 
         //---network Stats---
-        entriesToSend.add(GenerateEntry(content.data.url,"Network","bytesIn",content.data.average.bytesIn,"bytes",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Network","bytesOut",content.data.average.bytesOut,"bytes",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Network","bytesInDoc",content.data.average.bytesInDoc ,"bytes",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Network","bytesOutDoc",content.data.average.bytesOutDoc ,"bytes",content.data.completed,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Network","bytesIn",content.data.average.bytesIn,"bytes",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Network","bytesOut",content.data.average.bytesOut,"bytes",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Network","bytesInDoc",content.data.average.bytesInDoc ,"bytes",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Network","bytesOutDoc",content.data.average.bytesOutDoc ,"bytes",date,content.data.summary));
 
 
         //---score---
-        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_cdn",content.data.average.score_cdn ,"score",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_progressive_jpeg",content.data.average.score_progressive_jpeg ,"score",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_etags",content.data.average.score_etags ,"score",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_cache",content.data.average.score_cache ,"score",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_keepalive",content.data.average.score_keepalive ,"score",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_compress",content.data.average.score_compress ,"score",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Score","SpeedIndex",content.data.average.SpeedIndex ,"score",content.data.completed,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_cdn",content.data.average.score_cdn ,"score",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_progressive_jpeg",content.data.average.score_progressive_jpeg ,"score",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_etags",content.data.average.score_etags ,"score",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_cache",content.data.average.score_cache ,"score",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_keepalive",content.data.average.score_keepalive ,"score",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Score","score_compress",content.data.average.score_compress ,"score",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Score","SpeedIndex",content.data.average.SpeedIndex ,"score",date,content.data.summary));
 
 
         //---Stats---
-        entriesToSend.add(GenerateEntry(content.data.url,"Stats","requests",content.data.average.requests ,"nb",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Stats","requestsDoc",content.data.average.requestsDoc ,"nb",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Stats","requestsFull",content.data.average.requestsFull ,"nb",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Stats","responses_404",content.data.average.responses_404 ,"nb",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Stats","responses_200",content.data.average.responses_200 ,"nb",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Stats","connections",content.data.average.connections ,"nb",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Stats","image_total",content.data.average.image_total ,"nb",content.data.completed,content.data.summary));
-        entriesToSend.add(GenerateEntry(content.data.url,"Stats","domElements",content.data.average.domElements ,"nb",content.data.completed,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Stats","requests",content.data.average.requests ,"nb",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Stats","requestsDoc",content.data.average.requestsDoc ,"nb",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Stats","requestsFull",content.data.average.requestsFull ,"nb",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Stats","responses_404",content.data.average.responses_404 ,"nb",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Stats","responses_200",content.data.average.responses_200 ,"nb",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Stats","connections",content.data.average.connections ,"nb",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Stats","image_total",content.data.average.image_total ,"nb",date,content.data.summary));
+        entriesToSend.add(GenerateEntry(content.data.url,"Stats","domElements",content.data.average.domElements ,"nb",date,content.data.summary));
 
         client.addEntries(entriesToSend);
+
     }
 
     public String[] GetLocationAndBrowser(String location)
